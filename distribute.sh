@@ -5,7 +5,7 @@ currVersion=$( cat VERSION )
 echo "Current version: $currVersion"
 echo "Enter new version name: "
 read newVersion
-echo $newVersion > version.txt
+echo $newVersion > VERSION
 echo "Version: $currVersion -> $newVersion"
 
 # Adding and commit new version.
