@@ -42,7 +42,7 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = "pep440"
     cfg.tag_prefix = "EzPyZ-"
-    cfg.parentdir_prefix = "None"
+    cfg.parentdir_prefix = "EzPyZ-"
     cfg.versionfile_source = "src/EzPyZ/_version.py"
     cfg.verbose = False
     return cfg
