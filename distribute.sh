@@ -15,7 +15,7 @@ git push origin master
 
 # Tagging newest version and uploading tarball to GitHub.
 git tag $newVersion
-python3 setup.py register sdist upload
+git push; git push --tags
 
 # Uploading to PyPi.
 sudo python3 setup.py develop
