@@ -21,7 +21,6 @@ git tag $newVersion
 git push; git push --tags
 
 # Uploading to PyPi.
-rm -rf dist/*
 sudo python3 setup.py develop
 sudo python3 setup.py sdist bdist_wheel
 python3 -m twine upload --repository pypi dist/*
