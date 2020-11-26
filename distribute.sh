@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# Updating requirements.
+pipenv run pip freeze > requirements.txt
+
 # Getting new version.
 currVersion=$( cat VERSION )
 echo "Current version: $currVersion"

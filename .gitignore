@@ -160,6 +160,7 @@ ENV/
 env.bak/
 venv.bak/
 pythonenv*
+Pipfile*
 
 # Spyder project settings
 .spyderproject
