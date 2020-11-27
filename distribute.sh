@@ -1,7 +1,8 @@
 #!/bin/zsh
 
 # Updating requirements.
-pipenv run pip freeze > requirements.txt
+echo EzPyZ > requirements.txt
+pipenv run pip freeze >> requirements.txt
 
 # Getting new version.
 currVersion=$( cat VERSION )
