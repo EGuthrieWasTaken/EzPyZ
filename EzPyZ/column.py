@@ -24,7 +24,7 @@ class Column:
         """
         Initializes the ``Column`` object.
 
-        :param title:   A string containing the title of the ``Column`` to be created.
+        :param title:   A string containing the title of the column.
         :param values:  A list containing the values in the column, in order.
         :rtype:         ``None``
         """
@@ -62,8 +62,8 @@ class Column:
         """
         out_str = self.col_title + "\n"
         for i in self.values:
-            out_str += i + "\n"
-        return out_str
+            out_str += str(i) + "\n"
+        return out_str[:-1]
 
     # ~~~~~ Public methods ~~~~~
     def get_values(self) -> List[Any]:
@@ -104,7 +104,7 @@ class Column:
             elif type(i) is not None and not isnan(i):
                 vals.append(i)
         return st.median(self.values)
-    def mode(self) -> int:
+    def mode(self) -> float:
         vals = []
         for i in self.values:
             if type(i) not in (int, float, type(None)):

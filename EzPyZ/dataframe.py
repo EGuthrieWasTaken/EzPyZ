@@ -22,8 +22,8 @@ class DataFrame:
     >>> import EzPyZ as ez
     >>> import pandas as pd
     >>> raw_data = {
-    >>>     'height (cm)': [134, 168, 149, 201, 177],
-    >>>     'weight (kg)': [32.2, 64.3, 59.9, 95.4, 104.2]
+    >>>     'height (cm)': [134, 168, 149, 201, 177, 168],
+    >>>     'weight (kg)': [32.2, 64.3, 59.9, 95.4, 104.2, 63.1]
     >>> }
     >>> pandas_df = pd.DataFrame(raw_data)
     >>> df = ez.DataFrame(data=pandas_df)
@@ -33,8 +33,8 @@ class DataFrame:
 
     >>> import EzPyZ as ez
     >>> raw_data = {
-    >>>     'height (cm)': [134, 168, 149, 201, 177],
-    >>>     'weight (kg)': [32.2, 64.3, 59.9, 95.4, 104.2]
+    >>>     'height (cm)': [134, 168, 149, 201, 177, 168],
+    >>>     'weight (kg)': [32.2, 64.3, 59.9, 95.4, 104.2, 63.1]
     >>> }
     >>> df = ez.DataFrame(data=raw_data)
 
