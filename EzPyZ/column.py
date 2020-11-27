@@ -6,6 +6,8 @@ functionality.
 """
 
 # Standard library.
+from math import isnan
+import statistics as st
 from typing import Any, List
 
 class Column:
@@ -40,27 +42,122 @@ class Column:
                 + type(values).__name__
             )
 
-        self.title = title
+        self.col_title = title
         self.values = values
         return
-    def __str__(self) -> str:
-        """
-        Returns the ``Column`` as a string.
-        """
-        out_str = self.title + "\n"
-        for i in self.values:
-            out_str += i + "\n"
-        return out_str
     def __repr__(self) -> str:
         """
         Returns basic ``Column`` information.
         """
-        if len(self.values >= 5):
-            return 'Column(title={}, values={})'.format(self.title, self.values)
+        if len(self.values) >= 5:
+            return 'Column(title={}, values={})'.format(self.col_title, self.values)
         val_str = "["
         for i in self.values[:5]:
             val_str += str(i) + ", "
         val_str += "...]"
-        return 'Column(title={}, values={})'.format(self.title, val_str)
+        return 'Column(title={}, values={})'.format(self.col_title, val_str)
+    def __str__(self) -> str:
+        """
+        Returns the ``Column`` as a string.
+        """
+        out_str = self.col_title + "\n"
+        for i in self.values:
+            out_str += i + "\n"
+        return out_str
 
     # ~~~~~ Public methods ~~~~~
+    def get_values(self) -> List[Any]:
+        """
+        Returns ``self.values``.
+
+        :rtype: ``List[Any]``
+        """
+        return self.values
+    def length(self) -> int:
+        """
+        Returns the length of ``self.values``.
+
+        :rtype: ``int``
+        """
+        return len(self.values)
+    def mean(self) -> float:
+        vals = []
+        for i in self.values:
+            if type(i) not in (int, float, type(None)):
+                raise TypeError("expected values in column "
+                                + self.title() +
+                                " to be str, float, or NoneType, got "
+                                + type(i).__name__
+                )
+            elif type(i) is not None and not isnan(i):
+                vals.append(i)
+        return st.mean(vals)
+    def median(self) -> int:
+        vals = []
+        for i in self.values:
+            if type(i) not in (int, float, type(None)):
+                raise TypeError("expected values in column "
+                                + self.title() +
+                                " to be str, float, or NoneType, got "
+                                + type(i).__name__
+                )
+            elif type(i) is not None and not isnan(i):
+                vals.append(i)
+        return st.median(self.values)
+    def mode(self) -> int:
+        vals = []
+        for i in self.values:
+            if type(i) not in (int, float, type(None)):
+                raise TypeError("expected values in column "
+                                + self.title() +
+                                " to be str, float, or NoneType, got "
+                                + type(i).__name__
+                )
+            elif type(i) is not None and not isnan(i):
+                vals.append(i)
+        return st.mode(self.values)
+    def stdev(self) -> float:
+        vals = []
+        for i in self.values:
+            if type(i) not in (int, float, type(None)):
+                raise TypeError("expected values in column "
+                                + self.title() +
+                                " to be str, float, or NoneType, got "
+                                + type(i).__name__
+                )
+            elif type(i) is not None and not isnan(i):
+                vals.append(i)
+        return st.stdev(vals)
+    def set_values(
+            self,
+            values: List[Any]
+    ) -> None:
+        """
+        Sets ``self.values``.
+        """
+        if type(values) is not list:
+            # ``values`` is of an invalid type.
+            raise TypeError(
+                "expected ``values`` to be of type List[Any], got "
+                + type(values).__name__
+            )
+        self.values = values
+    def title(self) -> str:
+        """
+        Returns ``self.col_title``
+
+        :rtype: ``str``
+        """
+        return self.col_title
+    def variance(self) -> float:
+        vals = []
+        for i in self.values:
+            if type(i) not in (int, float, type(None)):
+                raise TypeError("expected values in column "
+                                + self.title() +
+                                " to be str, float, or NoneType, got "
+                                + type(i).__name__
+                )
+            elif type(i) is not None and not isnan(i):
+                vals.append(i)
+        return st.variance(vals)
