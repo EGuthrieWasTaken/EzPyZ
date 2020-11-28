@@ -1,7 +1,7 @@
 """
 dataframe.py
 ~~~~~~~~~~~~
-This module provides an ``EzPyZ`` class which will contain all functionality of this package.
+This module provides an ``EzPyZ.DataFrame`` class which will contain all functionality of this package.
 """
 
 # Standard library.
@@ -14,8 +14,7 @@ from EzPyZ.column import Column
 
 class DataFrame:
     """
-    An ``EzPyZ`` object. An ``EzPyZ`` object will be used to utilize all other functionality in this
-    package.
+    A ``DataFrame`` object will be used to utilize all other functionality in this package.
 
     If you would prefer to pass a ``pandas`` dataframe directly to the class:
 
@@ -45,20 +44,19 @@ class DataFrame:
     >>> df = ez.DataFrame(data=read_file("bmi_data.csv")) # A bmi_data.xlsx would also work here.
     """
     # ~~~~~ Special methods ~~~~~
-    def __init__(
-            self,
-            data: Union[pd.DataFrame, Dict[str, List[Any]]],
-            columns: List[str] = None
-    ) -> None:
+    def __init__(self, data, columns=None):
         """
-        Initializes the ``EzPyZ`` object.
+        Constructs a :class:`DataFrame <DataFrame>` object.
 
         :param data:    Either a pandas DataFrame object, or a dictionary where the keys are column
                         titles and the values are lists of associated values (in order).
+        :type data:     ``Union[pd.DataFrame, Dict[str, List[Any]]]``
         :param columns: (optional) A list of strings containing the titles of columns to be included
                         in the dataframe. All others will be excluded. If this option is left blank
                         or set to ``None``, then all columns will be included.
-        :rtype:         ``None``
+        :type columns:  ``List[str]``
+        :return:        A new ``EzPyZ.DataFrame`` object.
+        :rtype:         ``EzPyZ.DataFrame``
         """
         # Validating input.
         if type(data) not in (pd.DataFrame, dict):
@@ -110,7 +108,27 @@ class DataFrame:
             setattr(self, i.title(), i)
 
         return
-    def __str__(self) -> str:
+    def __str__(self):
+        """
+        Returns the ``DataFrame`` as a string.
+
+        :return:    A print-friendly string representing the ``DataFrame`` object.
+        :rtype:     ``str``
+
+        Usage::
+
+          >>> import EzPyZ as ez
+          >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
+          >>> df = ez.DataFrame(data=data)
+          >>> print(df)
+            height_cm      weight_kg      
+          0   134            32.2           
+          1   168            64.3           
+          2   149            59.9           
+          3   201            95.4           
+          4   177            104.2          
+          5   168            63.1
+        """
         titles = self.get_titles()
         rows = [{title: title for title in titles}] + self.__generate_rows()
         spaces = " " * (len(str(self.df[0].length())) + 2)
@@ -120,7 +138,21 @@ class DataFrame:
                 out_str += "{:<15}".format(rows[i][val])
             out_str += "\n" + str(i) + spaces
         return out_str[1:-(len(spaces) + len(str(len(rows) - 1)) + 1)]
-    def __repr__(self) -> str:
+    def __repr__(self):
+        """
+        Returns basic ``DataFrame`` information.
+
+        :return:    Basic ``DataFrame`` information for debugging.
+        :rtype:     ``str``
+
+        Usage::
+
+        >>> import EzPyZ as ez
+        >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
+        >>> df = ez.DataFrame(data=data)
+        >>> print(df)
+
+        """
         if len(self.df) >= 3:
             return "EzPyZ(df={})".format([str(i) for i in self.df])
         val_str = "["
@@ -130,22 +162,44 @@ class DataFrame:
         return "EzPyZ(df={})".format(val_str)
 
     # ~~~~~ Public methods ~~~~~
-    def get_titles(self) -> List[str]:
+    def get_titles(self):
         """
         Returns a list of all column titles.
 
-        :rtype: ``List[str]``
+        :return:    A list of all column titles.
+        :rtype:     ``List[str]``
+
+        Usage::
+
+        >>> import EzPyZ as ez
+        >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
+        >>> df = ez.DataFrame(data=data)
+        >>> print(df.get_titles())
+        ['height_cm', 'weight_kg']
         """
         return [i.title() for i in self.df]
-    def head(
-        self,
-        count: int = 5
-    ) -> str:
+    def head(self, count=5):
         """
         Returns the first ``count`` rows of the dataframe.
 
-        :param count:   The number of rows to return.
+        :param count:   (optional) The number of rows to return. Defaults to ``5``.
+        :type count:    ``int``
+        :return:        The first ``count`` rows of the dataframe.
         :rtype:         ``str``
+
+        Usage::
+
+        >>> import EzPyZ as ez
+        >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
+        >>> df = ez.DataFrame(data=data)
+        >>> print(df.head())
+          height_cm      weight_kg      
+        0   134            32.2           
+        1   168            64.3           
+        2   149            59.9           
+        3   201            95.4           
+        4   177            104.2          
+        5   168            63.1
         """
         titles = self.get_titles()
         rows = [{title: title for title in titles}] + self.__generate_rows()[:count]
@@ -156,21 +210,28 @@ class DataFrame:
                 out_str += "{:<15}".format(rows[i][val])
             out_str += "\n" + str(i) + spaces
         return out_str[1:-(len(spaces) + len(str(len(rows) - 1)) + 1)]
-    def write_csv(
-            self,
-            filename: str = "out.csv",
-            header: bool = True
-    ) -> None:
+    def write_csv(self, filename="out.csv", header=True):
         """
-        Writes the dataframe to a CSV file. If ``filename`` is left at default, the CSV will be
-        generated in the local directory with the name "out.csv". If ``header`` is left at ``True``
-        default, the first row in the CSV will be the column titles. If ``header`` is set to
-        ``False``, the column titles will be omitted.
+        Writes the dataframe to a CSV file.
 
-        :param filename:    (optional) The qualified name of the file to write to.
-        :param header:      (optional) A ``bool`` specifying whether or not the column titles should
-                            be written to the CSV.
-        :rtype:             ``None``
+        :param filename:    (optional) The qualified name of the file to write to. Defaults to
+                            ``out.csv``.
+        :type filename:     ``str``
+        :param header:      (optional) Boolean. Specifies whether or not the column titles should
+                            be written to the CSV. Defaults to ``True``.
+        :type header:       ``bool``
+        :return:            Nothing
+        :rtype:             ``NoneType``
+
+        Usage::
+
+        >>> import EzPyZ as ez
+        >>> raw_data = {
+        >>>     'height (cm)': [134, 168, 149, 201, 177, 168],
+        >>>     'weight (kg)': [32.2, 64.3, 59.9, 95.4, 104.2, 63.1]
+        >>> }
+        >>> df = ez.DataFrame(data=raw_data)
+        >>> df.write_csv("bmi_data.csv")
         """
         with open(filename, "w") as out_csv:
             writer = DictWriter(out_csv, fieldnames=self.get_titles())
@@ -184,7 +245,8 @@ class DataFrame:
         Set all columns to the same length of the longest column by appending ``None`` to the
         end of shorter columns.
 
-        :rtype: ``None``
+        :return:    Nothing
+        :rtype:     ``None``
         """
         col_len = max([i.length() for i in self.df])
         for i in self.df:
@@ -193,8 +255,9 @@ class DataFrame:
         """
         Returns a list of dictionaries for values in the dataframe, where each dictionary in the
         list represents one row in the dataframe.
-
-        :rtype: ``List[Dict[str, Any]]``
+        
+        :return:    List of dictionaries where each dictionary represents one row in the dataframe.
+        :rtype:     ``List[Dict[str, Any]]``
         """
         self.__correct_length()
         titles = self.get_titles()

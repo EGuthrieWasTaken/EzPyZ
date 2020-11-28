@@ -12,9 +12,9 @@ import sphinx_rtd_theme
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../EzPyZ'))
 
 
 # -- Project information -----------------------------------------------------
@@ -23,6 +23,9 @@ project = 'EzPyZ'
 copyright = '2020, Ethan Guthrie'
 author = 'Ethan Guthrie'
 
+with open("../VERSION", "r") as v_file:
+    release = v_file.read()
+print("Project", project, "by", author, ". Version", release)
 
 # -- General configuration ---------------------------------------------------
 
@@ -30,7 +33,10 @@ author = 'Ethan Guthrie'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx_rtd_theme"
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx_rtd_theme",
+    "sphinx.ext.autosectionlabel"
 ]
 
 # Add any paths that contain templates here, relative to this directory.

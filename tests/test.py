@@ -8,7 +8,6 @@ Runs tests to ensure that EzPyZ is running correctly.
 from typing import Any
 # Internal classes/functions
 import EzPyZ as ez
-from EzPyZ.tools import read_csv, read_excel
 
 def do_test(
         title: str,
@@ -26,8 +25,8 @@ def do_test(
 
 def main() -> None:
     # Testing to see if read functions work.
-    csv_data = read_csv("tests/test.csv")
-    xl_data = read_excel("tests/test.xlsx")
+    csv_data = ez.tools.read_csv("tests/test.csv")
+    xl_data = ez.tools.read_excel("tests/test.xlsx")
     do_test("read functions", str(csv_data), str(xl_data))
 
     # Creating dataframe with csv_data
