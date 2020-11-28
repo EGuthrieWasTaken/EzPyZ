@@ -102,4 +102,4 @@ Of course, most of the time you will not be hard-coding your data directly. Fort
 
     df = ez.DataFrame(data=read_file("bmi_data.csv")) # A bmi_data.xlsx would also work here.
 
-That should be enough to get you off the ground! To learn more, check out the `documentation <https://ezpyz.readthedocs.io/en/main>`_.
+That should be enough to get you off the ground! To learn more, check out the `documentation <https://ezpyz.readthedocs.io/en/stable>`_.
