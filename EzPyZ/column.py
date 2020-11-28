@@ -18,7 +18,7 @@ class Column:
     # ~~~~~ Special methods ~~~~~
     def __init__(
             self,
-            title:  str,
+            title: str,
             values: List[Any]
     ) -> None:
         """
