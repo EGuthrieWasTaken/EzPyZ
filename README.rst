@@ -30,7 +30,7 @@ If you're using brew (most likely for MacOS), you can install pip (along with th
 
     brew install python3
 
-**Note: The creator of this software does not recommend the installation of python or pip using brew, and instead recommends that pip be installed using** `get-pip.py <https://pip.pypa.io/en/stable/installing/>`_, **or that Python 3.7+ be installed using the installation candidates found on** `python.org <https://www.python.org/downloads/)>`_, **which include pip by default.**
+**Note: The creator of this software does not recommend the installation of python or pip using brew, and instead recommends that Python 3.7+ be installed using the installation candidates found on** `python.org <https://www.python.org/downloads/)>`_, **which include pip by default.**
 
 Using Pip to install from PyPi
 ==============================
@@ -102,7 +102,7 @@ Of course, most of the time you will not be hard-coding your data directly. Fort
 
     df = ez.DataFrame(data=read_file("bmi_data.csv")) # A bmi_data.xlsx would also work here.
 
-That should be enough to get you off the ground! To learn more, check out the `documentation <https://ezpyz.readthedocs.io/en/stable>`_.
+That should be enough to get you off the ground! To learn more, check out the documentation.
 
 -------------
 Documentation
