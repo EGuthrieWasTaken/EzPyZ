@@ -8,6 +8,8 @@
 .. |python versions| image:: https://img.shields.io/pypi/pyversions/EzPyZ
 .. |pypi format| image:: https://img.shields.io/pypi/format/EzPyZ
 
+.. |readthedocs status| image:: https://readthedocs.org/projects/ezpyz/badge/?version=latest
+
 ============================================================
 EzPyZ |travis status| |pypi version| |license| |pypi status|
 ============================================================
@@ -104,7 +106,7 @@ Of course, most of the time you will not be hard-coding your data directly. Fort
 
 That should be enough to get you off the ground! To learn more, check out the documentation.
 
--------------
-Documentation
--------------
+----------------------------------
+Documentation |readthedocs status|
+----------------------------------
 Documentation for this project can be found on `Read the Docs <https://ezpyz.readthedocs.io/en/stable>`_. Otherwise, feel free to browse the source code within the repository! It is (hopefully) well-documented...
