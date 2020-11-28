@@ -119,7 +119,7 @@ class DataFrame:
             for val in rows[i]:
                 out_str += "{:<15}".format(rows[i][val])
             out_str += "\n" + str(i) + spaces
-        return out_str[1:-(len(spaces) + len(str(i)) + 1)]
+        return out_str[1:-(len(spaces) + len(str(len(rows) - 1)) + 1)]
     def __repr__(self) -> str:
         if len(self.df) >= 3:
             return "EzPyZ(df={})".format([str(i) for i in self.df])
@@ -155,7 +155,7 @@ class DataFrame:
             for val in rows[i]:
                 out_str += "{:<15}".format(rows[i][val])
             out_str += "\n" + str(i) + spaces
-        return out_str[1:-(len(spaces) + len(str(i)) + 1)]
+        return out_str[1:-(len(spaces) + len(str(len(rows) - 1)) + 1)]
     def write_csv(
             self,
             filename: str = "out.csv",
