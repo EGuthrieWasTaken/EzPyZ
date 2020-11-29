@@ -7,14 +7,13 @@
 Welcome to EzPyZ!
 =================
 
-Table of Contents
+Contents of EzPyZ
 =================
 
 .. toctree::
-   :glob:
-   
-   source/*
-   source/tools/*
+
+   source/index.rst
+   source/tools/index.rst
 
 Indices and tables
 ==================
