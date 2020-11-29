@@ -41,4 +41,9 @@ def main() -> None:
     do_test("standard deviation", 26.17, round(df.weight_kg.stdev(), 2))
     do_test("variance", 685.12, round(df.weight_kg.variance(), 2))
 
+    # Testing if length functions work.
+    do_test("length columns", 2, df.length_columns())
+    do_test("length rows", 6, df.length_rows())
+    do_test("column length", 6, df.weight_kg.length())
+
 main()
