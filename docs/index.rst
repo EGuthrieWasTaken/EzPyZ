@@ -6,10 +6,13 @@
 =====
 EzPyZ
 =====
-- :doc:`dataframe.py <source/dataframe>`
-- :doc:`column.py <source/column>`
-- **Tools**
-   - :doc:`read_files.py <source/tools/read_files>`
+
+.. toctree::
+   :maxdepth: 2
+   
+   source/dataframe
+   source/column
+   source/tools/read_files
 
 Indices and tables
 ==================
