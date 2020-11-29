@@ -2,7 +2,7 @@
 tools
 =====
 
-.. automodule:: EzPyZ.tools.read_files
+.. automodule:: read_files
     :members:
     :undoc-members:
     :show-inheritance:
