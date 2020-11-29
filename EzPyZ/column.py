@@ -51,7 +51,7 @@ class Column:
         :return:    Basic ``Column`` information for debugging.
         :rtype:     ``str``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -73,7 +73,7 @@ class Column:
         :return:    The ``Column`` as a string.
         :rtype:     ``str``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -100,7 +100,7 @@ class Column:
         :return:    The values in the column.
         :rtype:     ``List[Any]``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -116,7 +116,7 @@ class Column:
         :return:    The number of values in the column.
         :rtype:     ``int``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -132,7 +132,7 @@ class Column:
         :return:    The mean of the values in the column.
         :rtype:     ``float``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -158,7 +158,7 @@ class Column:
         :return:    The median of the values in the column.
         :rtype:     ``float``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -184,7 +184,7 @@ class Column:
         :return:    The mode of the values in ``Column``.
         :rtype:     ``float``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -210,7 +210,7 @@ class Column:
         :return:    The standard deviation of the values in the column.
         :rtype:     ``float``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -252,7 +252,7 @@ class Column:
         :return:    The title of the column.
         :rtype:     ``str``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])
@@ -268,7 +268,7 @@ class Column:
         :return:    The variance of the values in the column.
         :rtype:     ``float``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> col = ez.column.Column("height_cm", [134, 168, 149, 201, 177, 168])

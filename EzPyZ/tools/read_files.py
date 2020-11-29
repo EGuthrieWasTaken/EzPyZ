@@ -20,7 +20,7 @@ def is_excel(filename):
     :return:            Boolean. Whether ``filename`` is a valid Excel file.
     :rtype:             ``bool``
 
-    code:: python3
+    Usage::
 
         >>> import EzPyZ as ez
         >>> ez.tools.read_files.is_excel("bmi_data.xlsx")
@@ -49,7 +49,7 @@ def read_file(filename: str, return_pandas_df=False):
     :return:                    A formatted version of the data in ``filename``.
     :rtype:                     ``pandas.DataFrame`` or ``Dict[str, List[Any]]]``
 
-    code:: python3
+    Usage::
 
         >>> import EzPyZ as ez
         >>> data = ez.tools.read_file("bmi_data.csv")

@@ -18,7 +18,7 @@ class DataFrame:
 
     If you would prefer to pass a ``pandas`` dataframe directly to the class:
 
-    code:: python3
+    Usage::
 
         >>> import EzPyZ as ez
         >>> import pandas as pd
@@ -32,7 +32,7 @@ class DataFrame:
     Or if you'd like to provide the data in a more raw format (similar to what would be passed to a
     ``pandas`` dataframe):
 
-    code:: python3
+    Usage::
 
         >>> import EzPyZ as ez
         >>> raw_data = {
@@ -43,7 +43,7 @@ class DataFrame:
 
     Or if you'd like to provide the data directly from an Excel of CSV file:
 
-    code:: python3
+    Usage::
 
         >>> import EzPyZ as ez
         >>> from EzPyZ.tools import read_file
@@ -122,7 +122,7 @@ class DataFrame:
         :return:    A print-friendly string representing the ``DataFrame`` object.
         :rtype:     ``str``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
@@ -153,7 +153,7 @@ class DataFrame:
         :return:    Basic ``DataFrame`` information for debugging.
         :rtype:     ``str``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
@@ -187,7 +187,7 @@ class DataFrame:
         :return:    A list of all column titles.
         :rtype:     ``List[str]``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
@@ -206,7 +206,7 @@ class DataFrame:
         :return:        The first ``count`` rows of the dataframe.
         :rtype:         ``str``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
@@ -237,7 +237,7 @@ class DataFrame:
         :return:    Number of columns.
         :rtype:     ``int``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
@@ -254,7 +254,7 @@ class DataFrame:
         :return:    Number of rows.
         :rtype:     ``int``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
@@ -279,7 +279,7 @@ class DataFrame:
         :return:            Nothing.
         :rtype:             ``NoneType``
 
-        code:: python3
+        Usage::
 
             >>> import EzPyZ as ez
             >>> raw_data = {
