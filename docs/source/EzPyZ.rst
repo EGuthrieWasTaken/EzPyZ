@@ -5,11 +5,11 @@ EzPyZ
 ---------
 DataFrame
 ---------
-.. autoclass:: dataframe.DataFrame
+.. autoclass:: EzPyZ.DataFrame
     :members:
 
 ------
 Column
 ------
-.. autoclass:: column.Column
+.. autoclass:: EzPyZ.Column
     :members:
