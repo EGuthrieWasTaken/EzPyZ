@@ -2,10 +2,16 @@
 EzPyZ
 =====
 
-.. automodule:: dataframe
+---------
+DataFrame
+---------
+.. autoclass:: dataframe.DataFrame
     :members:
     :undoc-members:
 
-.. automodule:: column
+------
+Column
+------
+.. autoclass:: column.Column
     :members:
     :undoc-members:
