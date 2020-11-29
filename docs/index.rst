@@ -11,9 +11,10 @@ Table of Contents
 =================
 
 .. toctree::
+   :glob:
    
-   source/EzPyZ.rst
-   source/tools/tools.rst
+   source/*
+   source/tools/*
 
 Indices and tables
 ==================

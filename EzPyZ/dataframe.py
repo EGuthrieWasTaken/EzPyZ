@@ -242,7 +242,7 @@ class DataFrame:
             >>> import EzPyZ as ez
             >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
             >>> df = ez.DataFrame(data=data)
-            >>> print(df.length_columns())
+            >>> df.length_columns()
             2
 
         """
@@ -259,7 +259,7 @@ class DataFrame:
             >>> import EzPyZ as ez
             >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
             >>> df = ez.DataFrame(data=data)
-            >>> print(df.length_columns())
+            >>> df.length_rows()
             6
 
         """
