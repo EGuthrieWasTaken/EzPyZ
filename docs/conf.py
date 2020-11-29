@@ -39,6 +39,12 @@ extensions = [
     "sphinx.ext.autosectionlabel"
 ]
 
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True,
+    'special-members': '__str__,__repr__'
+}
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
