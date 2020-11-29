@@ -8,11 +8,9 @@ EzPyZ
 =====
 
 .. toctree::
-   :maxdepth: 2
    
-   source/dataframe
-   source/column
-   source/tools/read_files
+   source/EzPyZ.rst
+   source/tools/tools.rst
 
 Indices and tables
 ==================
