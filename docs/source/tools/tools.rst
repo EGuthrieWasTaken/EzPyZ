@@ -2,6 +2,6 @@
 tools
 =====
 
-.. automodule:: EzPyZ.tools.read_files
+.. automodule:: tools.read_files
     :members:
     :undoc-members:
