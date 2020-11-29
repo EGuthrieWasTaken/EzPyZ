@@ -20,11 +20,12 @@ def is_excel(filename):
     :return:            Boolean. Whether ``filename`` is a valid Excel file.
     :rtype:             ``bool``
 
-    Usage::
+    code:: python3
 
-    >>> import EzPyZ as ez
-    >>> ez.tools.is_excel("bmi_data.xlsx")
-    True
+        >>> import EzPyZ as ez
+        >>> ez.tools.read_files.is_excel("bmi_data.xlsx")
+        True
+
     """
     try:
         open_workbook(filename)
@@ -40,7 +41,7 @@ def read_file(filename: str, return_pandas_df=False):
     Reads the provided Excel or CSV data file. Returns a pandas ``DataFrame`` object if
     ``return_pandas_df`` is ``True``, or a dictionary where the keys are column titles and the
     values are lists of associated values (in order) otherwise.
-    
+
     :param filename:            The qualified path to the data file to read.
     :type filename:             ``str``
     :param return_pandas_df:    (optional) Boolean. Whether the data should be returned as a
@@ -48,10 +49,11 @@ def read_file(filename: str, return_pandas_df=False):
     :return:                    A formatted version of the data in ``filename``.
     :rtype:                     ``pandas.DataFrame`` or ``Dict[str, List[Any]]]``
 
-    Usage::
+    code:: python3
 
-    >>> import EzPyZ as ez
-    >>> data = ez.tools.read_file("bmi_data.csv")
+        >>> import EzPyZ as ez
+        >>> data = ez.tools.read_file("bmi_data.csv")
+
     """
     # Reading file.
     if is_excel(filename):
@@ -60,7 +62,7 @@ def read_file(filename: str, return_pandas_df=False):
     else:
         # File is a CSV file.
         df = read_csv(filename)
-    
+
     # Returning value based on whether ``return_pandas_df`` is ``True`` or ``False``
     if return_pandas_df:
         return df
