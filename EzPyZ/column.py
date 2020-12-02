@@ -8,7 +8,6 @@ functionality.
 # Standard library.
 from math import isnan
 import statistics as st
-from typing import Any, List
 
 class Column:
     """
