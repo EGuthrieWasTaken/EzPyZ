@@ -43,9 +43,9 @@ def t_test(x, y=None, alternative="two-tailed", mu=None, data=None, paired=False
                         ``EzPyZ.DataFrame``! Defaults to ``None``.
     :type subset:       ``str``
     :return:            The results of the t-test.
-    :rtype:             ``TResult``
+    :rtype:             ``EzPyZ.TResult``
 
-    Example one-sample t-test:
+    Example one-sample t-test::
 
         >>> import EzPyZ as ez
         >>> data = {
@@ -68,7 +68,7 @@ def t_test(x, y=None, alternative="two-tailed", mu=None, data=None, paired=False
         95.0 percent confidence interval for x: [13.14278, 19.428649]
         mean of the differences (μ - x):        -4.285714
 
-    Example independent-samples t-test:
+    Example independent-samples t-test::
 
         >>> import EzPyZ as ez
         >>> data = {
@@ -92,7 +92,7 @@ def t_test(x, y=None, alternative="two-tailed", mu=None, data=None, paired=False
         95.0 percent confidence interval for x: [0.14278, 6.428649]
         mean of the differences (y - x):        3.571429
 
-    Example paired-samples t-test:
+    Example paired-samples t-test::
 
         >>> import EzPyZ as ez
         >>> data = {
@@ -237,7 +237,22 @@ def t_test(x, y=None, alternative="two-tailed", mu=None, data=None, paired=False
 
 class TResult:
     """
-    A ``TResult`` object will be generated and returned by t-tests.
+    A ``TResult`` object will be generated and returned by t-tests. It will contain the following
+    attributes:
+
+    :TResult.desc:          A description of the t-test run (i.e. one-sample, paired-samples, etc.).
+    :TResult.x:             The title of the x column.
+    :TResult.y:             The title of the y column.
+    :TResult.mu:            The population mean.
+    :TResult.conf_level:    The confidence level.
+    :TResult.t:             The t-score.
+    :TResult.df:            The degrees of freedom.
+    :TResult.p:             The p-value.
+    :TResult.resolution:    A brief statement saying whether the null hypothesis was rejected.
+    :TResult.alt:           The alternative hypothesis.
+    :TResult.null:          The null hypothesis.
+    :TResult.conf_interval: The confidence interval of the x column.
+    :TResult.mean_diff:     The mean difference (y - x) or (μ - x).
     """
     # ~~~~~ Special methods ~~~~~
     def __init__(self, info):
