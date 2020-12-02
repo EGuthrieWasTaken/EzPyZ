@@ -1,5 +1,4 @@
 .. toctree::
    :glob:
-   
-   ./EzPyZ.rst
+
    ./*
