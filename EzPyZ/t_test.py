@@ -105,15 +105,15 @@ def t_test(x, y=None, alternative="two-tailed", mu=None, data=None, paired=False
         >>> t_res = ez.t_test(data=df, x='before', y='after', paired=True)
         >>> print(t_res)
 
-                                Paired t-test
+                                                Paired t-test
 
-        data:   before and after
-        t = -4.3966, df = 6, p-value = 0.004585
-        null hypothesis:                        true difference in means is equal to 0
-        alternative hypothesis:                 true difference in means is not equal to 0
-        resolution:                             reject null hypothesis with confidence level of 0.05
-        95.0 percent confidence interval for x: [0.14278, 6.428649]
-        mean of the differences (y - x):        3.571429
+        data:                                                   before (m = 3.29) and after (m = 6.86)
+        output:                                                 t = -4.3966, df = 6, p-value = 0.004585
+        null hypothesis:                                        true difference in means is equal to 0
+        alternative hypothesis:                                 true difference in means is not equal to 0
+        resolution:                                             reject null hypothesis with confidence level of 0.05
+        95.0 percent confidence interval for x:                 [0.14278, 6.428649]
+        mean of the differences (y - x):                        3.571429
 
     """
     # Validate input.
@@ -204,10 +204,10 @@ def t_test(x, y=None, alternative="two-tailed", mu=None, data=None, paired=False
         ]
         if mu is None:
             if x.mean() <= y.mean():
-                p = 1
+                p = 1 - p
         else:
             if x.mean() <= mu:
-                p = 1
+                p = 1 - p
     else:
         conf_z_score = abs(norm.ppf(conf_level))
         conf_interval = [
@@ -230,6 +230,8 @@ def t_test(x, y=None, alternative="two-tailed", mu=None, data=None, paired=False
 
     if mu is not None:
         results["output"]["mean_difference"] = mu - x.mean()
+        results["output"]["mean_x"] = x.mean()
+        results["output"]["mean_y"] = y.mean()
     else:
         results["output"]["mean_difference"] = y.mean() - x.mean()
 
@@ -241,10 +243,12 @@ class TResult:
     attributes:
 
     :TResult.desc:          A description of the t-test run (i.e. one-sample, paired-samples, etc.).
-    :TResult.x:             The title of the x column.
-    :TResult.y:             The title of the y column.
+    :TResult.x:             The ``EzPyZ.Column`` object for the x column.
+    :TResult.y:             The ``EzPyZ.Column`` object for the y column.
     :TResult.mu:            The population mean.
     :TResult.conf_level:    The confidence level.
+    :TResult.conf_perc:     The percentage confidence level. For ``conf_level = .05``, this would be
+                            ``95``.
     :TResult.t:             The t-score.
     :TResult.df:            The degrees of freedom.
     :TResult.p:             The p-value.
@@ -269,6 +273,7 @@ class TResult:
         self.y = info['options']['y']
         self.mu = info['options']['mu']
         self.conf_level = info['options']['confidence_level']
+        self.conf_perc = str((1 - self.conf_level) * 100)
         self.t = round(info['output']['t'], 4)
         self.df = round(info['output']['df'], 4)
         self.p = round(info['output']['p'], 6)
@@ -324,22 +329,24 @@ class TResult:
 
         """
         if self.mu is None:
-            return ("\n\t\t\t{0}\n\n".format(self.desc) +
-                    "data:\t{0} and {1}\n".format(self.x.title(), self.y.title()) +
-                    "t = {0}, df = {1}, p-value = {2}\n".format(self.t, self.df, self.p) +
-                    "null hypothesis:\t\t\t{0}\n".format(self.null) +
-                    "alternative hypothesis:\t\t\t{0}\n".format(self.alt) +
-                    "resolution:\t\t\t\t{0} with confidence level of {1}\n".format(self.resolution, self.conf_level) +
-                    "{0} percent confidence interval for x:\t{1}\n".format(str((1 - self.conf_level) * 100), self.conf_int) +
-                    "mean of the differences (y - x):\t{0}".format(self.mean_diff)
+            return ("\n\t\t\t\t\t{0}\n\n".format(self.desc) +
+                    "data:\t\t\t\t\t\t\t{0} (m = {1}) ".format(self.x.title(), round(self.x.mean(), 2)) + 
+                    "and {0} (m = {1})\n".format(self.y.title(), round(self.y.mean(), 2)) +
+                    "output:\t\t\t\t\t\t\tt = {0}, df = {1}, p-value = {2}\n".format(self.t, self.df, self.p) +
+                    "null hypothesis:\t\t\t\t\t{0}\n".format(self.null) +
+                    "alternative hypothesis:\t\t\t\t\t{0}\n".format(self.alt) +
+                    "resolution:\t\t\t\t\t\t{0} with confidence level of {1}\n".format(self.resolution, self.conf_level) +
+                    "{0} percent confidence interval for x:\t\t\t{1}\n".format(self.conf_perc, self.conf_int) +
+                    "mean of the differences (y - x):\t\t\t{0}".format(self.mean_diff)
             )
-        return ("\n\t\t\t{0}\n\n".format(self.desc) +
-                "data:\t{0}\n".format(self.x.title()) +
-                "t = {0}, df = {1}, p-value = {2}\n".format(self.t, self.df, self.p) +
-                "null hypothesis:\t\t\t{0}\n".format(self.null) +
-                "alternative hypothesis:\t\t\t{0}\n".format(self.alt) +
-                "resolution:\t\t\t\t{0} with confidence level of {1}\n".format(self.resolution, self.conf_level) +
-                "{0} percent confidence interval for x:\t{1}\n".format(str((1 - self.conf_level) * 100), self.conf_int) +
+        return ("\n\t\t\t\t\t{0}\n\n".format(self.desc) +
+                "data:\t\t{0} (m = {1}) and μ ({2})\n".format(self.x.title(), round(self.x.mean(), 2), self.mu) +
+                "and {0} (m = {1})\n".format(self.y.title(), round(self.y.mean(), 2)) +
+                "output:\t\t\t\t\t\t\tt = {0}, df = {1}, p-value = {2}\n".format(self.t, self.df, self.p) +
+                "null hypothesis:\t\t\t\t\t{0}\n".format(self.null) +
+                "alternative hypothesis:\t\t\t\t\t{0}\n".format(self.alt) +
+                "resolution:\t\t\t\t\t\t{0} with confidence level of {1}\n".format(self.resolution, self.conf_level) +
+                "{0} percent confidence interval for x:\t\t\t{1}\n".format(self.conf_perc, self.conf_int) +
                 "mean of the differences (μ - x):\t{0}".format(self.mean_diff)
         )
     def __repr__(self):
