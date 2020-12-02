@@ -12,20 +12,20 @@ from typing import Any, List
 
 class Column:
     """
-    A ``Column`` object. A ``Column`` object will make up ``EzPyZ`` dataframes in this module. This
-    class is NOT intended for exernal use!
+    A ``Column`` object. ``Column`` objects will make up ``EzPyZ.DataFrame`` objects in this module.
+    This class is NOT intended for exernal use!
     """
     # ~~~~~ Special methods ~~~~~
     def __init__(self, title, values):
         """
-        Initializes the ``Column`` object.
+        Constructs a ``Column`` object.
 
         :param title:   A string containing the title of the column.
         :type title:    ``str``
         :param values:  A list containing the values in the column, in order.
         :type values:   ``List[Any]``
         :return:        Nothing.
-        :rtype:         ``None``
+        :rtype:         ``NoneType``
         """
         # Validating input.
         if type(title) is not str:
@@ -236,7 +236,7 @@ class Column:
         :param values:  A list containing the values in the column, in order.
         :type values:   ``List[Any]``
         :return:        Nothing.
-        :rtype:         ``None``
+        :rtype:         ``NoneType``
         """
         if type(values) is not list:
             # ``values`` is of an invalid type.

@@ -6,7 +6,6 @@ This module provides an ``EzPyZ.DataFrame`` class which will contain all functio
 
 # Standard library.
 from csv import DictWriter
-from typing import Any, Dict, List, Union
 # Related third-partly library.
 import pandas as pd
 # Internal classes/functions
@@ -18,32 +17,26 @@ class DataFrame:
 
     If you would prefer to pass a ``pandas`` dataframe directly to the class:
 
-    Usage::
-
         >>> import EzPyZ as ez
         >>> import pandas as pd
         >>> raw_data = {
-        >>>     'height_cm': [134, 168, 149, 201, 177, 168],
-        >>>     'weight_kg': [32.2, 64.3, 59.9, 95.4, 104.2, 63.1]
-        >>> }
+        ...     'height_cm': [134, 168, 149, 201, 177, 168],
+        ...     'weight_kg': [32.2, 64.3, 59.9, 95.4, 104.2, 63.1]
+        ... }
         >>> pandas_df = pd.DataFrame(raw_data)
         >>> df = ez.DataFrame(data=pandas_df)
 
     Or if you'd like to provide the data in a more raw format (similar to what would be passed to a
     ``pandas`` dataframe):
 
-    Usage::
-
         >>> import EzPyZ as ez
         >>> raw_data = {
-        >>>     'height_cm': [134, 168, 149, 201, 177, 168],
-        >>>     'weight_kg': [32.2, 64.3, 59.9, 95.4, 104.2, 63.1]
-        >>> }
+        ...     'height_cm': [134, 168, 149, 201, 177, 168],
+        ...     'weight_kg': [32.2, 64.3, 59.9, 95.4, 104.2, 63.1]
+        ... }
         >>> df = ez.DataFrame(data=raw_data)
 
     Or if you'd like to provide the data directly from an Excel of CSV file:
-
-    Usage::
 
         >>> import EzPyZ as ez
         >>> from EzPyZ.tools import read_file
@@ -51,17 +44,23 @@ class DataFrame:
 
     """
     # ~~~~~ Special methods ~~~~~
-    def __init__(self, data, columns=None):
+    def __init__(self, data, columns=None, subset=None):
         """
-        Constructs a :class:`DataFrame <DataFrame>` object.
+        Constructs a ``DataFrame`` object.
 
         :param data:    Either a pandas DataFrame object, or a dictionary where the keys are column
                         titles and the values are lists of associated values (in order).
         :type data:     ``Union[pd.DataFrame, Dict[str, List[Any]]]``
         :param columns: (optional) A list of strings containing the titles of columns to be included
                         in the dataframe. All others will be excluded. If this option is left blank
-                        or set to ``None``, then all columns will be included.
+                        or set to ``NoneType``, then all columns will be included.
         :type columns:  ``List[str]``
+        :param subset:  String containing rules to exclude certain rows from the ``DataFrame``. This
+                        string must be composed with standard comparison operators ('==', '!=', '<',
+                        '>', '<=', '>='). "And" statements must be separated by the word 'and'
+                        character, and "or" statements must be separated by the word 'or'.
+                        Parenthesis are allowed as well. Defaults to ``None``.
+        :type subset:   ``str``
         :return:        A new ``EzPyZ.DataFrame`` object.
         :rtype:         ``EzPyZ.DataFrame`
         """
@@ -82,6 +81,8 @@ class DataFrame:
         # Check if ``data`` is a ``pandas`` dataframe, and handle it accordingly.
         if isinstance(data, pd.DataFrame):
             # ``data`` is a ``pandas`` dataframe.
+            data = {i: list(data[i]) for i in list(data.columns)}
+        """
             if columns is None:
                 # Use all columns.
                 data = {i: list(data[i]) for i in list(data.columns)}
@@ -105,10 +106,29 @@ class DataFrame:
                         # A column that doesn't exist was specified.
                         raise ValueError(i + " is not a valid column title.")
                 data = {i: data[i] for i in columns}
-
+        """
         # Create dataframe using ``Column`` objects and ensure all columns are the same length.
         self.df = [Column(i, data[i]) for i in data]
         self.__correct_length()
+
+        # Filter dataset.
+        if subset is not None:
+            filtered = self.subset(subset)
+            self.df = filtered.df
+
+        # Remove unwanted columns (if applicable).
+        if columns is not None:
+            # Only a subset of columns are wanted.
+            column_titles = self.get_titles()
+            keep = []
+            for c in columns:
+                if c not in column_titles:
+                    raise ValueError(c + " is not a valid column title.")
+                for c2 in self.df:
+                    if c2.title() == c:
+                        keep.append(c2)
+                        break
+            self.df = keep
 
         # Set attributes to class to contain column names.
         for i in self.df:
@@ -129,12 +149,12 @@ class DataFrame:
             >>> df = ez.DataFrame(data=data)
             >>> print(df)
             height_cm      weight_kg
-            0   134            32.2
-            1   168            64.3
-            2   149            59.9
-            3   201            95.4
-            4   177            104.2
-            5   168            63.1
+            1   134            32.2
+            2   168            64.3
+            3   149            59.9
+            4   201            95.4
+            5   177            104.2
+            6   168            63.1
 
         """
         titles = self.get_titles()
@@ -144,7 +164,7 @@ class DataFrame:
         for i in range(len(rows)):
             for val in rows[i]:
                 out_str += "{:<15}".format(rows[i][val])
-            out_str += "\n" + str(i) + spaces
+            out_str += "\n" + str(i + 1) + spaces
         return out_str[1:-(len(spaces) + len(str(len(rows) - 1)) + 1)]
     def __repr__(self):
         """
@@ -178,6 +198,16 @@ class DataFrame:
 
         :return:    Columns as a list.
         :rtype:     ``List[EzPyZ.Column]``
+
+        Usage::
+
+            >>> import EzPyZ as ez
+            >>> data = ez.tools.read_file("bmi_data.csv") A bmi_data.xlsx would also work here.
+            >>> df = ez.DataFrame(data=data)
+            >>> print(df.get_columns())
+            [Column(title=height_cm, values=[134, 168, 149, 201, 177, ...]),
+             Column(title=weight_kg, values=[32.2, 64.3, 59.9, 95.4, 104.2, ...])]
+
         """
         return self.df
     def get_titles(self):
@@ -266,6 +296,30 @@ class DataFrame:
         if self.length_columns() == 0:
             return 0
         return self.df[0].length()
+    def subset(self, criterion):
+        """
+        Returns a new ``DataFrame`` object that meets the filter criterion provided.
+
+        :return:    A new, filtered ``DataFrame`` object.
+        :rtype:     ``EzPyZ.DataFrame``
+        """
+        # Put all rows that meet the criterion into the out_rows list.
+        rows = self.__generate_rows()
+        out_rows = []
+        columns = self.get_titles()
+        for row in rows:
+            for c in columns:
+                vars()[c] = row[c]
+            if eval(criterion):
+                out_rows.append(row)
+        
+        # Generate column-based data dictionary (to create new ``DataFrame`` object).
+        data = {i: [] for i in columns}
+        for row in out_rows:
+            for i in row:
+                data[i].append(row[i])
+
+        return DataFrame(data)
     def write_csv(self, filename="out.csv", header=True):
         """
         Writes the dataframe to a CSV file.
@@ -299,11 +353,11 @@ class DataFrame:
     # ~~~~~ Private methods ~~~~~
     def __correct_length(self):
         """
-        Set all columns to the same length of the longest column by appending ``None`` to the
+        Set all columns to the same length of the longest column by appending ``NoneType`` to the
         end of shorter columns.
 
         :return:    Nothing.
-        :rtype:     ``None``
+        :rtype:     ``NoneType``
         """
         col_len = max([i.length() for i in self.df])
         for i in self.df:
