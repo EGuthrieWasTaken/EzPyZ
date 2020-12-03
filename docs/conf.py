@@ -33,7 +33,7 @@ print("Project", project, "by", author, ". Version", release)
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 
-needs_sphinx = "2.2"
+needs_sphinx = "3.3.1"
 
 extensions = [
     "sphinx.ext.autodoc",
