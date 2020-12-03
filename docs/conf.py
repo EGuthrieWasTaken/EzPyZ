@@ -42,7 +42,8 @@ extensions = [
 autodoc_default_options = {
     'members': True,
     'undoc-members': True,
-    'special-members': '__str__,__repr__'
+    'special-members': '__str__,__repr__',
+    'private-members': True
 }
 
 # Add any paths that contain templates here, relative to this directory.
