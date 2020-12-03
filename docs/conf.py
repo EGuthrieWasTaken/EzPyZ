@@ -32,6 +32,9 @@ print("Project", project, "by", author, ". Version", release)
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+
+needs_sphinx = "2.2"
+
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
@@ -42,7 +45,6 @@ extensions = [
 autodoc_default_options = {
     'members': True,
     'inherited-members': True,
-    'private-members': True,
     'special-members': '__init__,__str__,__repr__',
     'undoc-members': True,
     'show-inheritance': True
